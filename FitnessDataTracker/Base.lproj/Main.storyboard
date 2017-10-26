@@ -10,21 +10,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Fitness Data Tracker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-SA-vOE">
                                 <rect key="frame" x="20.666666666666657" y="24.999999999999986" width="372.66666666666674" height="220.66666666666663"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="150"/>
-                                <color key="textColor" red="0.44115948516712378" green="0.35149730532422863" blue="0.34647953609406662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="150"/>
+                                <color key="textColor" red="0.35682992807282909" green="1" blue="0.18667802081775187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter usernamefdsfdf" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="a0h-dP-eZt">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter username" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="a0h-dP-eZt">
                                 <rect key="frame" x="131.66666666666666" y="294.66666666666669" width="148.99999999999997" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
@@ -38,18 +38,28 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDa-IS-WVn">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDa-IS-WVn">
                                 <rect key="frame" x="234.66666666666663" y="397" width="60" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Register"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="0.35682992807282909" green="1" blue="0.18667802081775187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logUserIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sBF-JX-aHl"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RN3-j0-81L">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RN3-j0-81L">
                                 <rect key="frame" x="132.66666666666666" y="397" width="40" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Login"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="0.35682992807282909" green="1" blue="0.18667802081775187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logUserIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Rd-vb-rD8"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.69019607843137254" green="0.87450980392156863" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.14631233808290156" green="0.14631233808290156" blue="0.14631233808290156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RN3-j0-81L" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="93.5" id="0Hj-u6-tGM"/>
                             <constraint firstItem="Ml7-r5-QqQ" firstAttribute="width" secondItem="a0h-dP-eZt" secondAttribute="width" id="0pp-dF-CoB"/>
@@ -71,6 +81,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="RN3-j0-81L" id="KaP-2d-Liw"/>
+                        <outlet property="passwordField" destination="Ml7-r5-QqQ" id="NGe-Yb-iw7"/>
+                        <outlet property="registerButton" destination="DDa-IS-WVn" id="Az2-4q-dor"/>
+                        <outlet property="usernameField" destination="a0h-dP-eZt" id="2un-uH-0gg"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
