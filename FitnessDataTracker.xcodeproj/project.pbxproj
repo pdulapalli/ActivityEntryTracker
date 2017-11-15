@@ -9,9 +9,10 @@
 /* Begin PBXBuildFile section */
 		F64B9A7A1F9ACEAB005CB6D9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B9A791F9ACEAB005CB6D9 /* LoginViewController.swift */; };
 		F6752BDB1F9E608300A14FDE /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6752BDA1F9E608300A14FDE /* KeychainPasswordItem.swift */; };
+		F687CDF71FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F687CDF51FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodeld */; };
+		F687CDF91FBAACB4009E1FC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F687CDF81FBAACB3009E1FC4 /* MainViewController.swift */; };
 		F6F1F1791F9949EF00A2223C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F1F1781F9949EF00A2223C /* AppDelegate.swift */; };
 		F6F1F17E1F9949EF00A2223C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6F1F17C1F9949EF00A2223C /* Main.storyboard */; };
-		F6F1F1811F9949EF00A2223C /* FitnessDataTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F6F1F17F1F9949EF00A2223C /* FitnessDataTracker.xcdatamodeld */; };
 		F6F1F1831F9949EF00A2223C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6F1F1821F9949EF00A2223C /* Assets.xcassets */; };
 		F6F1F1861F9949EF00A2223C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6F1F1841F9949EF00A2223C /* LaunchScreen.storyboard */; };
 		F6F1F1911F9949F100A2223C /* FitnessDataTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F1F1901F9949F100A2223C /* FitnessDataTrackerTests.swift */; };
@@ -38,10 +39,11 @@
 /* Begin PBXFileReference section */
 		F64B9A791F9ACEAB005CB6D9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F6752BDA1F9E608300A14FDE /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		F687CDF61FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FitnessDataTracker.xcdatamodel; sourceTree = "<group>"; };
+		F687CDF81FBAACB3009E1FC4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F6F1F1751F9949EF00A2223C /* FitnessDataTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FitnessDataTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F1F1781F9949EF00A2223C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F6F1F17D1F9949EF00A2223C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F6F1F1801F9949EF00A2223C /* FitnessDataTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FitnessDataTracker.xcdatamodel; sourceTree = "<group>"; };
 		F6F1F1821F9949EF00A2223C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F6F1F1851F9949EF00A2223C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F6F1F1871F9949EF00A2223C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,11 +106,12 @@
 				F6752BDA1F9E608300A14FDE /* KeychainPasswordItem.swift */,
 				F6F1F1781F9949EF00A2223C /* AppDelegate.swift */,
 				F64B9A791F9ACEAB005CB6D9 /* LoginViewController.swift */,
+				F687CDF81FBAACB3009E1FC4 /* MainViewController.swift */,
 				F6F1F17C1F9949EF00A2223C /* Main.storyboard */,
 				F6F1F1821F9949EF00A2223C /* Assets.xcassets */,
 				F6F1F1841F9949EF00A2223C /* LaunchScreen.storyboard */,
 				F6F1F1871F9949EF00A2223C /* Info.plist */,
-				F6F1F17F1F9949EF00A2223C /* FitnessDataTracker.xcdatamodeld */,
+				F687CDF51FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodeld */,
 			);
 			path = FitnessDataTracker;
 			sourceTree = "<group>";
@@ -265,10 +268,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F687CDF91FBAACB4009E1FC4 /* MainViewController.swift in Sources */,
 				F64B9A7A1F9ACEAB005CB6D9 /* LoginViewController.swift in Sources */,
-				F6F1F1811F9949EF00A2223C /* FitnessDataTracker.xcdatamodeld in Sources */,
 				F6F1F1791F9949EF00A2223C /* AppDelegate.swift in Sources */,
 				F6752BDB1F9E608300A14FDE /* KeychainPasswordItem.swift in Sources */,
+				F687CDF71FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,12 +572,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F6F1F17F1F9949EF00A2223C /* FitnessDataTracker.xcdatamodeld */ = {
+		F687CDF51FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				F6F1F1801F9949EF00A2223C /* FitnessDataTracker.xcdatamodel */,
+				F687CDF61FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodel */,
 			);
-			currentVersion = F6F1F1801F9949EF00A2223C /* FitnessDataTracker.xcdatamodel */;
+			currentVersion = F687CDF61FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodel */;
 			path = FitnessDataTracker.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
