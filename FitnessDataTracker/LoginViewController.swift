@@ -25,16 +25,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        print("What?")
-//        if segue != nil {
-//            print(segue.destination)
-//        }
-//        if let mainDataViewController = segue.destination as? MainDataViewController {
-//            print("YAY")
-//        }
-//    }
-    
     @IBAction func logUserIn(_ sender: UIButton) {
         guard let uField = usernameField.text, let pField = passwordField.text,
             !uField.isEmpty && !pField.isEmpty else {
@@ -102,14 +92,12 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginTextFieldBeganEditing(_ sender: UITextField) {
         if (sender == usernameField || sender == passwordField) {
-            print("WHAAAAAA")
             sender.becomeFirstResponder()
         }
     }
     
     @IBAction func loginTextFieldHaltedEditing(_ sender: UITextField) {
         if (sender == usernameField || sender == passwordField) {
-            print("Poooooo")
             sender.resignFirstResponder()
         }
     }

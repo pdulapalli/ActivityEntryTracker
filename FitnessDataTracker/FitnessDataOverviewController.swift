@@ -9,9 +9,10 @@
 import UIKit
 import CoreData
 
-class MainViewController: UITableViewController {
+class FitnessDataOverviewController: UITableViewController {
     var userAuthenticationApproved: Bool? = false
     var appWasInBackground = false
+    var managedObjectContext: NSManagedObjectContext!
     
     func openLoginScreen() {
         if let credentialsApproved = userAuthenticationApproved {
@@ -30,11 +31,16 @@ class MainViewController: UITableViewController {
         openLoginScreen()
     }
     
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return super.tableView(tableView, numberOfRowsInSection: section)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let alertTest = UIAlertController(title: "TEST", message: "BLAH", preferredStyle: .alert)
-//        alertTest.addAction(UIAlertAction(title: "Boo", style: .default, handler: nil))
-//        self.present(alertTest, animated: true, completion: nil)
+        /* Introduce rules for new UICollectionViewCell parameters */
+        
+        //let addItemButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewDataItem(_:)))
+//        navigationItem.leftBarButtonItem = addItemButton
         
         NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appBecomingInactive(_:)), name: .UIApplicationWillResignActive, object: nil)
@@ -56,6 +62,12 @@ class MainViewController: UITableViewController {
     @objc func appBecomingInactive(_ notification: Notification) {
         userAuthenticationApproved = false
         appWasInBackground = true
+    }
+    
+    @IBAction func addNewDataItem(_ sender: AnyObject) {
+        print("Hello world")
+        performSegue(withIdentifier: "Add Data Entry", sender: self)
+//        return
     }
     
 }
