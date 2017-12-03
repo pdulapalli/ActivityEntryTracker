@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q0u-gZ-L11">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,11 +16,11 @@
             <objects>
                 <tableViewController title="Fitness Data Overview" id="eN3-NP-3V9" customClass="FitnessDataTableController" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sMj-0E-PMc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="CtC-yn-slo">
-                            <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="80" width="1024" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem title="Sign Out" id="SFH-1q-CUE">
@@ -31,14 +32,14 @@
                         </toolbar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataTableViewCell" id="q9q-Hh-QaL" customClass="DataTableViewCell" customModule="FitnessDataTracker" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="1024" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q9q-Hh-QaL" id="5QS-yi-3UG">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="51.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem Ipsum" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="PJN-vE-DHX">
-                                            <rect key="frame" x="20" y="0.0" width="300" height="43.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="819" height="51.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -62,7 +63,7 @@
                             <outlet property="delegate" destination="eN3-NP-3V9" id="Dyw-Nu-IcO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="aDo-FW-SMs">
+                    <navigationItem key="navigationItem" title="Fitness Data Overview" prompt="Add or edit your fitness entries" id="aDo-FW-SMs">
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="9RD-jx-n7M">
                             <connections>
                                 <action selector="addNewDataItem:" destination="eN3-NP-3V9" id="gFc-4S-tYI"/>
@@ -83,11 +84,11 @@
             <objects>
                 <viewController id="1Hm-d3-qFA" userLabel="Data Entry View" customClass="DataEntryView" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0tE-jl-cKu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDo-mV-6v8">
-                                <rect key="frame" x="0.0" y="64" width="375" height="1.5"/>
+                                <rect key="frame" x="0.0" y="64" width="1024" height="44"/>
                                 <items>
                                     <navigationItem title="Fitness Data Entry" id="5f0-nh-38d" userLabel="Back">
                                         <barButtonItem key="leftBarButtonItem" tag="2" systemItem="cancel" id="b0E-Kk-JLY">
@@ -104,37 +105,37 @@
                                 </items>
                             </navigationBar>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10100000000000001" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="6a7-Ii-2cF" userLabel="Intensity Slider">
-                                <rect key="frame" x="35.5" y="313.5" width="304" height="34.5"/>
+                                <rect key="frame" x="100.5" y="642" width="823" height="69.5"/>
                                 <connections>
                                     <action selector="intensityValueChanged:" destination="1Hm-d3-qFA" eventType="valueChanged" id="9Xk-6O-cnv"/>
                                 </connections>
                             </slider>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comments..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-DS-hDq">
-                                <rect key="frame" x="37" y="533.5" width="299.5" height="67"/>
+                                <rect key="frame" x="102" y="1093" width="818.5" height="136.5"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="countDownTimer" countDownDuration="-1" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="sgI-by-IiH" userLabel="Duration Picker">
-                                <rect key="frame" x="37" y="380" width="299.5" height="100"/>
+                                <rect key="frame" x="102" y="778.5" width="818.5" height="205"/>
                                 <date key="date" timeIntervalSinceReferenceDate="532842833.66901201">
                                     <!--2017-11-20 03:53:53 +0000-->
                                 </date>
                             </datePicker>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eeg-q6-Cpo">
-                                <rect key="frame" x="37.5" y="133.5" width="300" height="100"/>
+                                <rect key="frame" x="102.5" y="273" width="819" height="205"/>
                                 <date key="date" timeIntervalSinceReferenceDate="532833817.238895">
                                     <!--2017-11-20 01:23:37 +0000-->
                                 </date>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intensity Value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61O-E9-sbD">
-                                <rect key="frame" x="132" y="280" width="112.5" height="13.5"/>
+                                <rect key="frame" x="358.5" y="573.5" width="307" height="27.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Activity Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yXb-Xo-PKs">
-                                <rect key="frame" x="37.5" y="66.5" width="300" height="40"/>
+                                <rect key="frame" x="102.5" y="136.5" width="819" height="82"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -198,7 +199,7 @@
             <objects>
                 <navigationController id="q0u-gZ-L11" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LSI-tg-Lde">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -214,17 +215,17 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Fitness Data Tracker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-SA-vOE">
-                                <rect key="frame" x="19" y="25" width="337.5" height="200"/>
+                                <rect key="frame" x="51" y="109.5" width="922" height="478"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="150"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter username" textAlignment="natural" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="a0h-dP-eZt">
-                                <rect key="frame" x="119.5" y="270.5" width="135" height="30"/>
+                                <rect key="frame" x="153.5" y="683" width="717" height="136.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -234,32 +235,10 @@
                                     <action selector="loginTextFieldHaltedEditing:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="hYL-sG-NZT"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ml7-r5-QqQ">
-                                <rect key="frame" x="119.5" y="306" width="135" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="loginTextFieldBeganEditing:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="Pm2-I7-UNC"/>
-                                    <action selector="loginTextFieldHaltedEditing:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="4Vc-hF-No2"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDa-IS-WVn">
-                                <rect key="frame" x="212.5" y="370.5" width="60" height="32"/>
-                                <color key="backgroundColor" red="0.15560233160621761" green="0.15560233160621761" blue="0.15560233160621761" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Register">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="logUserIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sBF-JX-aHl"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RN3-j0-81L">
-                                <rect key="frame" x="116.5" y="370.5" width="40" height="32"/>
+                                <rect key="frame" x="205" y="956" width="614" height="136.5"/>
                                 <color key="backgroundColor" red="0.15560233160621761" green="0.15560233160621761" blue="0.15560233160621761" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Login">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -270,31 +249,24 @@
                         </subviews>
                         <color key="backgroundColor" red="0.46339355645258468" green="0.90572376943005184" blue="0.021063343475117523" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="RN3-j0-81L" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="93.5" id="0Hj-u6-tGM"/>
-                            <constraint firstItem="Ml7-r5-QqQ" firstAttribute="width" secondItem="a0h-dP-eZt" secondAttribute="width" id="0pp-dF-CoB"/>
-                            <constraint firstItem="DDa-IS-WVn" firstAttribute="centerY" secondItem="RN3-j0-81L" secondAttribute="centerY" id="CGj-pS-oNs"/>
-                            <constraint firstItem="hxF-SA-vOE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" multiplier="1.25" id="H0K-LT-esm"/>
-                            <constraint firstItem="Ml7-r5-QqQ" firstAttribute="top" secondItem="a0h-dP-eZt" secondAttribute="bottom" multiplier="1.02" id="IGU-9o-kBh"/>
+                            <constraint firstItem="a0h-dP-eZt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GZy-3P-LG2"/>
+                            <constraint firstItem="RN3-j0-81L" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" multiplier="0.7" id="GbC-yc-o5Y"/>
+                            <constraint firstItem="hxF-SA-vOE" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" multiplier="0.08" id="H0K-LT-esm"/>
                             <constraint firstItem="hxF-SA-vOE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="J37-EA-EFS"/>
-                            <constraint firstItem="Ml7-r5-QqQ" firstAttribute="centerX" secondItem="a0h-dP-eZt" secondAttribute="centerX" id="JUi-zG-m5n"/>
-                            <constraint firstItem="a0h-dP-eZt" firstAttribute="height" secondItem="Ml7-r5-QqQ" secondAttribute="height" id="JYp-0X-OuL"/>
-                            <constraint firstItem="DDa-IS-WVn" firstAttribute="top" secondItem="Ml7-r5-QqQ" secondAttribute="bottom" multiplier="1.1" id="Vxf-F3-mL2"/>
-                            <constraint firstItem="DDa-IS-WVn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.13333" id="Yn9-Kc-0Tl"/>
-                            <constraint firstItem="a0h-dP-eZt" firstAttribute="centerX" secondItem="hxF-SA-vOE" secondAttribute="centerX" id="fDb-hF-Bnc"/>
-                            <constraint firstItem="a0h-dP-eZt" firstAttribute="top" secondItem="hxF-SA-vOE" secondAttribute="bottom" multiplier="1.2" id="ktN-kH-fzW"/>
-                            <constraint firstItem="hxF-SA-vOE" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" id="lqB-c8-45V"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="centerX" secondItem="RN3-j0-81L" secondAttribute="trailing" multiplier="1.2" id="oXR-qm-8B1"/>
-                            <constraint firstItem="a0h-dP-eZt" firstAttribute="width" secondItem="hxF-SA-vOE" secondAttribute="width" multiplier="0.4" id="pPK-bT-uWu"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="DDa-IS-WVn" secondAttribute="trailing" constant="78.5" id="sXL-JH-vU5"/>
+                            <constraint firstItem="RN3-j0-81L" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bAk-VA-6CH"/>
+                            <constraint firstItem="RN3-j0-81L" firstAttribute="height" secondItem="a0h-dP-eZt" secondAttribute="height" id="hFV-wr-iRh"/>
+                            <constraint firstItem="a0h-dP-eZt" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="bottomMargin" multiplier="0.5" id="ktN-kH-fzW"/>
+                            <constraint firstItem="hxF-SA-vOE" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.35" id="lqB-c8-45V"/>
+                            <constraint firstItem="a0h-dP-eZt" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.1" id="ow0-pi-Khm"/>
+                            <constraint firstItem="a0h-dP-eZt" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="pPK-bT-uWu"/>
+                            <constraint firstItem="RN3-j0-81L" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.6" id="pqJ-NT-2bF"/>
                             <constraint firstItem="hxF-SA-vOE" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="vS9-90-coi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="RN3-j0-81L" id="KaP-2d-Liw"/>
-                        <outlet property="passwordField" destination="Ml7-r5-QqQ" id="NGe-Yb-iw7"/>
-                        <outlet property="registerButton" destination="DDa-IS-WVn" id="Az2-4q-dor"/>
-                        <outlet property="usernameField" destination="a0h-dP-eZt" id="2un-uH-0gg"/>
+                        <outlet property="loginTextField" destination="a0h-dP-eZt" id="2un-uH-0gg"/>
                         <segue destination="U4g-jN-0jw" kind="unwind" identifier="doneWithLogin" unwindAction="loginCompletedSegue:" id="ezq-5T-9oj"/>
                     </connections>
                 </viewController>
