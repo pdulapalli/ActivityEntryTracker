@@ -13,7 +13,7 @@
         <!--Fitness Data Overview-->
         <scene sceneID="zLi-WP-Axg">
             <objects>
-                <tableViewController title="Fitness Data Overview" id="eN3-NP-3V9" customClass="FitnessDataOverviewController" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Fitness Data Overview" id="eN3-NP-3V9" customClass="FitnessDataTableController" customModule="FitnessDataTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sMj-0E-PMc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,7 +30,7 @@
                             </items>
                         </toolbar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="q9q-Hh-QaL">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataTableViewCell" id="q9q-Hh-QaL" customClass="DataTableViewCell" customModule="FitnessDataTracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q9q-Hh-QaL" id="5QS-yi-3UG">
@@ -53,7 +53,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="1Hm-d3-qFA" kind="showDetail" identifier="Add Data Entry" id="vMt-p0-n4z"/>
+                                    <segue destination="1Hm-d3-qFA" kind="show" identifier="ShowDataEntry" id="Ebs-Cv-lR3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -87,16 +87,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vDo-mV-6v8">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="1.5"/>
                                 <items>
                                     <navigationItem title="Fitness Data Entry" id="5f0-nh-38d" userLabel="Back">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="b0E-Kk-JLY"/>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="l9E-ZB-HFk"/>
+                                        <barButtonItem key="leftBarButtonItem" tag="2" systemItem="cancel" id="b0E-Kk-JLY">
+                                            <connections>
+                                                <segue destination="tfn-Mb-Vg9" kind="unwind" identifier="editingEntryFinished" unwindAction="finishedDataEntrySegue:" id="i8N-9V-zU3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" tag="3" systemItem="save" id="l9E-ZB-HFk">
+                                            <connections>
+                                                <action selector="saveDataEntryObject:" destination="1Hm-d3-qFA" id="gDd-I5-MaE"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="6a7-Ii-2cF" userLabel="Intensity Slider">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.10100000000000001" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="6a7-Ii-2cF" userLabel="Intensity Slider">
                                 <rect key="frame" x="35.5" y="313.5" width="304" height="34.5"/>
+                                <connections>
+                                    <action selector="intensityValueChanged:" destination="1Hm-d3-qFA" eventType="valueChanged" id="9Xk-6O-cnv"/>
+                                </connections>
                             </slider>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comments..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-DS-hDq">
                                 <rect key="frame" x="37" y="533.5" width="299.5" height="67"/>
@@ -170,14 +181,15 @@
                     </view>
                     <navigationItem key="navigationItem" title="Fitness Data Entry" id="UMk-AG-hJl"/>
                     <connections>
-                        <outlet property="activityNameTextField" destination="yXb-Xo-PKs" id="sUe-Br-BaD"/>
-                        <outlet property="commentsTextField" destination="hoS-DS-hDq" id="J5K-Wu-SC9"/>
-                        <outlet property="durationPicker" destination="sgI-by-IiH" id="wc6-53-YKB"/>
-                        <outlet property="entryDatePicker" destination="Eeg-q6-Cpo" id="d1r-Gt-aZE"/>
-                        <outlet property="intensitySlider" destination="6a7-Ii-2cF" id="klz-u2-zJ1"/>
+                        <outlet property="activityTypeTextField" destination="yXb-Xo-PKs" id="DrF-nQ-W7H"/>
+                        <outlet property="commentsTextField" destination="hoS-DS-hDq" id="2mf-zr-3be"/>
+                        <outlet property="durationPicker" destination="sgI-by-IiH" id="Pat-7E-NMG"/>
+                        <outlet property="entryDatePicker" destination="Eeg-q6-Cpo" id="AyZ-Ga-Odu"/>
+                        <outlet property="intensityLabel" destination="61O-E9-sbD" id="Blg-ot-FKb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nLA-aL-Nv5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="tfn-Mb-Vg9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1227.536231884058" y="460.59782608695656"/>
         </scene>
