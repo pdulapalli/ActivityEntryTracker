@@ -45,7 +45,7 @@
 		F654BAEE1FD1BE9500271BA7 /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		F654BAF01FD2337000271BA7 /* FitnessDataItemMgdObj+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FitnessDataItemMgdObj+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F654BAF11FD2337000271BA7 /* FitnessDataItemMgdObj+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FitnessDataItemMgdObj+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		F654BAF41FD23C5100271BA7 /* FitnessDataTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FitnessDataTableController.swift; path = /Users/pdulapalli/Documents/iOS_Workspace/FitnessDataTracker/FitnessDataTracker/FitnessDataTableController.swift; sourceTree = "<absolute>"; };
+		F654BAF41FD23C5100271BA7 /* FitnessDataTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitnessDataTableController.swift; sourceTree = "<group>"; };
 		F6752BDA1F9E608300A14FDE /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		F687CDF61FBA9E13009E1FC4 /* FitnessDataTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FitnessDataTracker.xcdatamodel; sourceTree = "<group>"; };
 		F6E7742A1FC52B31000C5DA5 /* DataEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEntryView.swift; sourceTree = "<group>"; };
