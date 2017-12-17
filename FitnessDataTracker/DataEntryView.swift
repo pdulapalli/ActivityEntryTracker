@@ -38,7 +38,7 @@ class DataEntryView: UIViewController {
         if sender.tag == saveButtonTag, let fdItem = fitDataItem {
             if let activityText = activityTypeTextField.text, !activityText.isEmpty {
                 do {
-//                    let fetchedResults = try fdItem.managedObjectContext!.fetch(FitnessDataItemMgdObj.fetchRequest())
+                    try fdItem.managedObjectContext?.save()
                 } catch {
                     print("Unable to save fitness data entry to records")
                 }

@@ -45,7 +45,7 @@ class LoginViewController: UIViewController {
             let isExistingUser: Bool = try checkExistingUser(loginName: loginName)
             var passwordPromptText: String?
             
-            let passwordInquiry = UIAlertController(title: "Password", message: isExistingUser ? "Please enter your password" : "Please enter desired password" , preferredStyle: .alert)
+            let passwordInquiry = UIAlertController(title: isExistingUser ? "Password" : "Create Your Password", message: isExistingUser ? "Please enter your password" : "Please enter desired password" , preferredStyle: .alert)
             passwordInquiry.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action:UIAlertAction!) -> Void in
                 guard let passwordText = passwordPromptText else {
@@ -112,29 +112,6 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func generatePasswordEntryPrompt(existingUser: Bool) -> UIAlertController {
-        let passwordInquiry = UIAlertController(title: "Password", message: existingUser ? "Please enter your password" : "Please enter desired password" , preferredStyle: .alert)
-        passwordInquiry.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action:UIAlertAction!) -> Void in
-            return
-        })
-        confirmAction.isEnabled = false
-        passwordInquiry.addAction(confirmAction)
-        
-        passwordInquiry.addTextField(configurationHandler: { (textField: UITextField!) in
-            NotificationCenter.default.addObserver(forName: .UITextFieldTextDidChange, object: textField, queue: OperationQueue.main, using: { (_) in
-                textField.placeholder = "Enter password here..."
-                textField.isSecureTextEntry = true
-                
-                if let txt = textField.text, !txt.isEmpty {
-                    confirmAction.isEnabled = true
-                }
-            })
-        })
-        
-        return passwordInquiry
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "doneWithLogin" {
             if username != nil {
@@ -157,12 +134,10 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginTextFieldBeganEditing(_ sender: UITextField) {
-        print("HIHIHI")
         sender.becomeFirstResponder()
     }
     
     @IBAction func loginTextFieldHaltedEditing(_ sender: UITextField) {
-        print("BYEBYEBYE")
         sender.resignFirstResponder()
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FitnessDataTableController: UITableViewController {
+class FitnessDataTableController: UITableViewController {    
     var username: String?
     var userAuthenticationApproved: Bool? = false
     var appWasInBackground = false
@@ -17,15 +17,13 @@ class FitnessDataTableController: UITableViewController {
     var fitnessDataItems: [NSManagedObject] = []
     var stringarray: [String] = []
     
-    enum userIdentityError : String, Error {
-        case noValidUsername = "User does not have a valid username"
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(DataTableViewCell.self, forCellReuseIdentifier: "DataCell")
+        tableView.register(DataTableViewCell.self, forCellReuseIdentifier: "DataTableViewCell")
         
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         managedObjectContext = appDelegate.persistentContainer.viewContext
         
         NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
@@ -64,7 +62,13 @@ class FitnessDataTableController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDataEntry" {
-            print("Moo")
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                print("Poopies")
+                return
+            }
+            
+            let dataItem = fetchedResultsController.object(at: indexPath)
+            (segue.destination as! DataEntryView).fitDataItem = dataItem
         }
     }
     
@@ -74,52 +78,115 @@ class FitnessDataTableController: UITableViewController {
     }
     
     @IBAction func addNewDataItem(_ sender: AnyObject) {
-        let fdiEntity = NSEntityDescription.entity(forEntityName: "FitnessDataItem", in: managedObjectContext)
-        let fitnessDataItem = NSManagedObject(entity: fdiEntity!, insertInto: managedObjectContext)
+        guard let entityName = fetchedResultsController.fetchRequest.entity?.name else {
+            return
+        }
+        
+        let mgdContext = fetchedResultsController.managedObjectContext
+        let fitnessDataItem = NSEntityDescription.insertNewObject(forEntityName: entityName, into: mgdContext) as! FitnessDataItemMgdObj
+        fitnessDataItem.username = username!
         
         do {
-            guard username != nil else {
-                throw userIdentityError.noValidUsername
-            }
-            fitnessDataItem.setValue(username!, forKey: "username")
-            fitnessDataItem.setValue("Blahblah", forKey: "activityType")
-            try managedObjectContext.save()
-            fitnessDataItems.append(fitnessDataItem)
-        } catch is userIdentityError {
-            print("Current user does not have valid user name")
-            let usernameAlert = UIAlertController(title: "Invalid username alert", message: "Returning to login screen", preferredStyle: .alert)
-            usernameAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action:UIAlertAction!) -> Void in
-                self.openLoginScreen()
-            }))
-            self.present(usernameAlert, animated: true, completion: nil)
-        } catch let error as NSError {
-            print("Unable to add item \(error)")
+            try mgdContext.save()
+        } catch let error {
+            print("Unable to add item: \(error)")
         }
-        tableView.reloadData()
     }
     
-    @IBAction func finishedDataEntrySegue(_ sender: UIStoryboardSegue) {
-        print("Came back!")
-        // TODO: include mechanism to persist data b/w Entry view and table view
+    // MARK: Fetched Results Controller
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<FitnessDataItemMgdObj> = {
+        let fetchRequest = FitnessDataItemMgdObj.fetchRequest() as! NSFetchRequest<FitnessDataItemMgdObj>
+        fetchRequest.fetchBatchSize = 5
+        
+        let sortDescriptor = NSSortDescriptor(key: "username", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error {
+            print("Error with fetch operation: \(error)")
+        }
+
+        return fetchedResultsController
+    }()
+}
+
+// MARK: Fetched Results Controller Delegate
+
+extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+            switch type {
+                case .insert:
+                    tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
+                case .delete:
+                    tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
+                case .update: // have to populate with "snippet" of fitness data item
+                    guard let currentCell = tableView.cellForRow(at: indexPath!), let currentDataItem = anObject as? FitnessDataItemMgdObj else {
+                        return
+                    }
+                    populateTableViewCellWithSnippet(cell: currentCell, with: currentDataItem)
+                case .move:
+                    tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
+                    tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
+            }
     }
     
-    // MARK: Necessary TableView Controller Functions
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        if type == NSFetchedResultsChangeType.insert {
+            tableView.insertSections([sectionIndex], with: UITableViewRowAnimation.fade)
+        } else if type == NSFetchedResultsChangeType.delete {
+            tableView.deleteSections([sectionIndex], with: UITableViewRowAnimation.fade)
+        } else {
+            return
+        }
+    }
+}
+
+// MARK: Necessary TableView Controller Functions
+
+extension FitnessDataTableController {
+    // Side note-- using "self" just to clarify that fetchedResultsController is in the primary class, whereas this is an extension of thet class. Can use fetchedResultsController without specifiying self, however
+    
+    func populateTableViewCellWithSnippet(cell: UITableViewCell, with snippet: FitnessDataItemMgdObj) {
+        cell.textLabel!.text = "cows"
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return self.fetchedResultsController.sections?.count ?? 0
+    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fitnessDataItems.count
+        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dataCell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath)
-//        dataCell.textLabel?.text = (fitnessDataItems[indexPath.row].value(forKey: "username") as? String) +
+        let dataCell = tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell", for: indexPath) as UITableViewCell
+        let dataItem = self.fetchedResultsController.object(at: indexPath)
+        populateTableViewCellWithSnippet(cell: dataCell, with: dataItem)
         
         return dataCell
     }
-}
-
-// MARK: Fetched Results Controller
-
-extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { // TODO: should be changed to always True/editable?
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let mgdContext = self.fetchedResultsController.managedObjectContext
+            mgdContext.delete(self.fetchedResultsController.object(at: indexPath))
+            
+            do {
+                try mgdContext.save()
+            } catch let errorB as NSError {
+                print("Error editing tableView\(errorB)")
+                abort()
+            }
+        }
+    }
 }
-
