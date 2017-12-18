@@ -9,13 +9,12 @@
 import UIKit
 import CoreData
 
-class FitnessDataTableController: UITableViewController {    
-    var username: String?
+class FitnessDataTableController: UITableViewController {
+    var currentUsername: String?
     var userAuthenticationApproved: Bool? = false
     var appWasInBackground = false
     var managedObjectContext: NSManagedObjectContext!
-    var fitnessDataItems: [NSManagedObject] = []
-    var stringarray: [String] = []
+    let date1 = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,28 +24,36 @@ class FitnessDataTableController: UITableViewController {
             return
         }
         managedObjectContext = appDelegate.persistentContainer.viewContext
-        
         NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appBecomingInactive(_:)), name: .UIApplicationWillResignActive, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("ViewDidAppear: \(userAuthenticationApproved!)")
-        if let credentialsApproved = userAuthenticationApproved, !credentialsApproved {
-            openLoginScreen()
+        if let credentialsApproved = userAuthenticationApproved {
+            if !credentialsApproved {
+                openLoginScreen()
+            }
         }
     }
     
     func openLoginScreen() {
-        if let credentialsApproved = userAuthenticationApproved {
-            print(credentialsApproved)
-            performSegue(withIdentifier: "openLogin", sender: self)
-        }
+        performSegue(withIdentifier: "openLogin", sender: self)
     }
     
     @IBAction func loginCompletedSegue(_ sender: UIStoryboardSegue) {
-        userAuthenticationApproved = true // Only return from login screen if successful login
-        print("Logged In")
+        if currentUsername != nil { // Ensure that current user has valid ID
+            userAuthenticationApproved = true // Indicator that it's okay to stay in this view b/c of successful login
+            
+            // Update predicate (filter entries for current user), re-fetch data, and reload table view
+            let predicate = NSPredicate(format: "username == %@", currentUsername!)
+            self.fetchedResultsController.fetchRequest.predicate = predicate
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch let error {
+                print("Fetching data items error: \(error)")
+            }
+            self.tableView.reloadData()
+        }
     }
     
     @IBAction func triggerLogout(_ sender: AnyObject) {
@@ -63,7 +70,6 @@ class FitnessDataTableController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDataEntry" {
             guard let indexPath = tableView.indexPathForSelectedRow else {
-                print("Poopies")
                 return
             }
             
@@ -78,13 +84,16 @@ class FitnessDataTableController: UITableViewController {
     }
     
     @IBAction func addNewDataItem(_ sender: AnyObject) {
-        guard let entityName = fetchedResultsController.fetchRequest.entity?.name else {
+        guard let entityName = fetchedResultsController.fetchRequest.entity?.name, let username = currentUsername else {
+            if currentUsername == nil {
+                print("FAILED: Cannot add data without authentication")
+            }
             return
         }
-        
         let mgdContext = fetchedResultsController.managedObjectContext
         let fitnessDataItem = NSEntityDescription.insertNewObject(forEntityName: entityName, into: mgdContext) as! FitnessDataItemMgdObj
-        fitnessDataItem.username = username!
+        fitnessDataItem.username = username
+        fitnessDataItem.entryDate = Date()
         
         do {
             try mgdContext.save()
@@ -93,18 +102,24 @@ class FitnessDataTableController: UITableViewController {
         }
     }
     
-    // MARK: Fetched Results Controller
+    let dateFormatter: DateFormatter = {
+       let formatter = DateFormatter()
+        formatter.locale = NSLocale.current
+        formatter.dateFormat = "yyyy-MM-dd, HH:mm"
+        return formatter
+    }()
     
+    // MARK: Fetched Results Controller
     lazy var fetchedResultsController: NSFetchedResultsController<FitnessDataItemMgdObj> = {
         let fetchRequest = FitnessDataItemMgdObj.fetchRequest() as! NSFetchRequest<FitnessDataItemMgdObj>
-        fetchRequest.fetchBatchSize = 5
-        
-        let sortDescriptor = NSSortDescriptor(key: "username", ascending: false)
+        fetchRequest.fetchBatchSize = 20
+
+        let sortDescriptor = NSSortDescriptor(key: "entryDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        
+
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
-        
+
         do {
             try fetchedResultsController.performFetch()
         } catch let error {
@@ -118,20 +133,24 @@ class FitnessDataTableController: UITableViewController {
 // MARK: Fetched Results Controller Delegate
 
 extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.beginUpdates()
+    }
+    
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-            switch type {
-                case .insert:
-                    tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
-                case .delete:
-                    tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
-                case .update: // have to populate with "snippet" of fitness data item
-                    guard let currentCell = tableView.cellForRow(at: indexPath!), let currentDataItem = anObject as? FitnessDataItemMgdObj else {
-                        return
-                    }
-                    populateTableViewCellWithSnippet(cell: currentCell, with: currentDataItem)
-                case .move:
-                    tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
-                    tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
+        switch type {
+            case .insert:
+                tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
+            case .delete:
+                tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
+            case .update: // have to populate with "snippet" of fitness data item
+                guard let currentCell = tableView.cellForRow(at: indexPath!), let currentDataItem = anObject as? FitnessDataItemMgdObj else {
+                    return
+                }
+                populateTableViewCellWithSnippet(cell: currentCell, with: currentDataItem)
+            case .move:
+                tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
+                tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
             }
     }
     
@@ -144,6 +163,12 @@ extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
             return
         }
     }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.endUpdates()
+        self.tableView.reloadData()
+    }
+    
 }
 
 // MARK: Necessary TableView Controller Functions
@@ -151,8 +176,16 @@ extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
 extension FitnessDataTableController {
     // Side note-- using "self" just to clarify that fetchedResultsController is in the primary class, whereas this is an extension of thet class. Can use fetchedResultsController without specifiying self, however
     
-    func populateTableViewCellWithSnippet(cell: UITableViewCell, with snippet: FitnessDataItemMgdObj) {
-        cell.textLabel!.text = "cows"
+    func populateTableViewCellWithSnippet(cell: UITableViewCell, with mgdObject: FitnessDataItemMgdObj) {
+        if (mgdObject.username != nil) /* && (mgdObject.entryDate != nil) */ {
+            let activityTypeText = mgdObject.activityType != nil ? mgdObject.activityType! : "Unknown Activity"
+            if mgdObject.entryDate != nil {
+                let dateString = dateFormatter.string(from: mgdObject.entryDate!)
+                cell.textLabel!.text = dateString + " | " + mgdObject.username! + " | " + activityTypeText
+            }
+        } else {
+            cell.textLabel!.text = "BLANK"
+        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -175,6 +208,10 @@ extension FitnessDataTableController {
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { // TODO: should be changed to always True/editable?
         return true
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "showDataEntry", sender: self)
+    }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -183,8 +220,8 @@ extension FitnessDataTableController {
             
             do {
                 try mgdContext.save()
-            } catch let errorB as NSError {
-                print("Error editing tableView\(errorB)")
+            } catch let error as NSError {
+                print("Error editing tableView\(error)")
                 abort()
             }
         }

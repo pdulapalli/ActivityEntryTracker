@@ -114,9 +114,10 @@ class LoginViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "doneWithLogin" {
+            print("USERNAME:\(username)")
             if username != nil {
                 if let destinationViewController: FitnessDataTableController = (segue.destination as? FitnessDataTableController) {
-                    destinationViewController.username = username
+                    destinationViewController.currentUsername = username
                 }
             }
         }
