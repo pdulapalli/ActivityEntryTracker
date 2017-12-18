@@ -14,7 +14,6 @@ class FitnessDataTableController: UITableViewController {
     var userAuthenticationApproved: Bool? = false
     var appWasInBackground = false
     var managedObjectContext: NSManagedObjectContext!
-    let date1 = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
