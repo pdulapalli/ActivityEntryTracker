@@ -59,6 +59,8 @@ class LoginViewController: UIViewController {
                 NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main, using: { (_) in
                     if let textIsEmpty = textField.text?.isEmpty, !textIsEmpty {
                         confirmAction.isEnabled = true
+                    } else {
+                        confirmAction.isEnabled = false
                     }
                 })
             })
