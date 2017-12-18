@@ -30,6 +30,7 @@ class LoginViewController: UIViewController {
         self.loginButton.titleLabel?.adjustsFontSizeToFitWidth = true
         self.loginTextField.adjustsFontSizeToFitWidth = true
         self.loginTextField.autocorrectionType = UITextAutocorrectionType.no
+        self.loginTextField.isSecureTextEntry = true
     }
     
     @IBAction func logUserIn(_ sender: UIButton) {
@@ -43,29 +44,31 @@ class LoginViewController: UIViewController {
 
         do {
             let isExistingUser: Bool = try checkExistingUser(loginName: loginName)
-            var passwordPromptText: String?
             
             let passwordInquiry = UIAlertController(title: isExistingUser ? "Password" : "Create Your Password", message: isExistingUser ? "Please enter your password" : "Please enter desired password" , preferredStyle: .alert)
-            passwordInquiry.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             let confirmAction = UIAlertAction(title: "Confirm", style: .default, handler: { (action:UIAlertAction!) -> Void in
-                guard let passwordText = passwordPromptText else {
+                guard let passwordText = passwordInquiry.textFields?[0].text else {
                     return
                 }
                 self.loggingUserIn(isExistingUser: isExistingUser, loginName: loginName, password: passwordText)
             })
             confirmAction.isEnabled = false
             passwordInquiry.addAction(confirmAction)
+            passwordInquiry.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             passwordInquiry.addTextField(configurationHandler: { (textField: UITextField!) in
-                NotificationCenter.default.addObserver(forName: .UITextFieldTextDidChange, object: textField, queue: OperationQueue.main, using: { (_) in
-                    textField.placeholder = "Enter password here..."
-                    textField.isSecureTextEntry = true
-                    textField.autocorrectionType = UITextAutocorrectionType.no
-                    if let txt = textField.text, !txt.isEmpty {
+                NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main, using: { (_) in
+                    if let textIsEmpty = textField.text?.isEmpty, !textIsEmpty {
                         confirmAction.isEnabled = true
-                        passwordPromptText = txt
                     }
                 })
             })
+            
+            if let passwordTextField = passwordInquiry.textFields?[0] {
+                passwordTextField.placeholder = "Enter password here..."
+                passwordTextField.isSecureTextEntry = true
+                passwordTextField.autocorrectionType = UITextAutocorrectionType.no
+            }
+            
             self.present(passwordInquiry, animated: true, completion: nil)
         } catch {
             fatalError("Error accessing Keychain items \(error)")
@@ -114,7 +117,6 @@ class LoginViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "doneWithLogin" {
-            print("USERNAME:\(username)")
             if username != nil {
                 if let destinationViewController: FitnessDataTableController = (segue.destination as? FitnessDataTableController) {
                     destinationViewController.currentUsername = username
