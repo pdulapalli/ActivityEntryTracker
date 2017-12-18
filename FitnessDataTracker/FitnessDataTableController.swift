@@ -94,6 +94,10 @@ class FitnessDataTableController: UITableViewController {
         fitnessDataItem.username = username
         fitnessDataItem.entryDate = Date()
         
+        // These are treated as Objective-C related values, cannot be set to Optional, so initialize them here to avoid uncertain behavior
+        fitnessDataItem.durationMinutes = Int64(0)
+        fitnessDataItem.intensity = Float(0.0)
+        
         do {
             try mgdContext.save()
         } catch let error {
