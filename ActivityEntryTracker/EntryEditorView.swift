@@ -43,11 +43,10 @@ class EntryEditorView: UIViewController {
     }
     
     @IBAction func saveDataEntryObject(_ sender: AnyObject) {
-        print("HI!")
-        if sender.tag == saveButtonTag, let fdItem = activityEntryItem {
+        if sender.tag == saveButtonTag, let entryItem = activityEntryItem {
             do {
-                updateDataItemProperties(dataItem: fdItem)
-                try fdItem.managedObjectContext!.save()
+                updateDataItemProperties(dataItem: entryItem)
+                try entryItem.managedObjectContext!.save()
             } catch {
                 print("Unable to save modified entry to records")
             }
