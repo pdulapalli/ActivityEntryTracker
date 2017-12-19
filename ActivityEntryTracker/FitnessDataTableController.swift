@@ -90,7 +90,7 @@ class FitnessDataTableController: UITableViewController {
             return
         }
         let mgdContext = fetchedResultsController.managedObjectContext
-        let fitnessDataItem = NSEntityDescription.insertNewObject(forEntityName: entityName, into: mgdContext) as! FitnessDataItemMgdObj
+        let fitnessDataItem = NSEntityDescription.insertNewObject(forEntityName: entityName, into: mgdContext) as! ActivityEntryItemMgdObj
         fitnessDataItem.username = username
         fitnessDataItem.entryDate = Date()
         
@@ -113,8 +113,8 @@ class FitnessDataTableController: UITableViewController {
     }()
     
     // MARK: Fetched Results Controller
-    lazy var fetchedResultsController: NSFetchedResultsController<FitnessDataItemMgdObj> = {
-        let fetchRequest = FitnessDataItemMgdObj.fetchRequest() as! NSFetchRequest<FitnessDataItemMgdObj>
+    lazy var fetchedResultsController: NSFetchedResultsController<ActivityEntryItemMgdObj> = {
+        let fetchRequest = ActivityEntryItemMgdObj.fetchRequest() as! NSFetchRequest<ActivityEntryItemMgdObj>
         fetchRequest.fetchBatchSize = 20
 
         let sortDescriptor = NSSortDescriptor(key: "entryDate", ascending: false)
@@ -147,7 +147,7 @@ extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
             case .delete:
                 tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
             case .update: // have to populate with "snippet" of fitness data item
-                guard let currentCell = tableView.cellForRow(at: indexPath!), let currentDataItem = anObject as? FitnessDataItemMgdObj else {
+                guard let currentCell = tableView.cellForRow(at: indexPath!), let currentDataItem = anObject as? ActivityEntryItemMgdObj else {
                     return
                 }
                 populateTableViewCellWithSnippet(cell: currentCell, with: currentDataItem)
@@ -179,7 +179,7 @@ extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
 extension FitnessDataTableController {
     // Side note-- using "self" just to clarify that fetchedResultsController is in the primary class, whereas this is an extension of thet class. Can use fetchedResultsController without specifiying self, however
     
-    func populateTableViewCellWithSnippet(cell: UITableViewCell, with mgdObject: FitnessDataItemMgdObj) {
+    func populateTableViewCellWithSnippet(cell: UITableViewCell, with mgdObject: ActivityEntryItemMgdObj) {
         if (mgdObject.username != nil) /* && (mgdObject.entryDate != nil) */ {
             let activityTypeText = mgdObject.activityType != nil ? mgdObject.activityType! : "Unknown Activity"
             if mgdObject.entryDate != nil {

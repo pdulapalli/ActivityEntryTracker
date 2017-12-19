@@ -19,7 +19,7 @@ class DataEntryView: UIViewController {
     let saveButtonTag = 3
     var intensityValue: Float?
     
-    var fitDataItem: FitnessDataItemMgdObj?
+    var fitDataItem: ActivityEntryItemMgdObj?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class DataEntryView: UIViewController {
         }
     }
     
-    func populateDataEntryFields(dataItem: FitnessDataItemMgdObj) {
+    func populateDataEntryFields(dataItem: ActivityEntryItemMgdObj) {
         entryDatePicker.setDate(dataItem.entryDate != nil ? dataItem.entryDate! : Date(), animated: true)
         durationPicker.setDate(durationFormatter.date(from: (String(format: "%02d", dataItem.durationMinutes / 60) + ":" + String(format: "%02d", dataItem.durationMinutes % 60)))!, animated: true)
         activityTypeTextField.text = dataItem.activityType != nil ? dataItem.activityType! : ""
@@ -64,7 +64,7 @@ class DataEntryView: UIViewController {
         updateIntensityValue(newIntensityValue: dataItem.intensity)
     }
     
-    func updateDataItemProperties(dataItem: FitnessDataItemMgdObj) {
+    func updateDataItemProperties(dataItem: ActivityEntryItemMgdObj) {
         dataItem.entryDate = entryDatePicker.date
         dataItem.activityType = activityTypeTextField.hasText ? activityTypeTextField.text : dataItem.activityType
         dataItem.comments = commentsTextField.hasText ? commentsTextField.text : dataItem.comments

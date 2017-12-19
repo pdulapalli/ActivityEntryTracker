@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 
-public class FitnessDataItemMgdObj: NSManagedObject {
+public class ActivityEntryItemMgdObj: NSManagedObject {
 
 }

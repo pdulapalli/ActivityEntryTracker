@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 
-extension FitnessDataItemMgdObj {
+extension ActivityEntryItemMgdObj {
     @NSManaged public var username: String?
     @NSManaged public var activityType: String?
     @NSManaged public var comments: String?
