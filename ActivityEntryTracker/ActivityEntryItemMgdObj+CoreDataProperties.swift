@@ -1,5 +1,5 @@
 //
-//  FitnessDataItemMgdObj+CoreDataProperties.swift
+//  ActivityEntryItemMgdObj+CoreDataProperties.swift
 //  ActivityEntryTracker
 //
 //  Created by Anurag Dulapalli on 12/1/17.

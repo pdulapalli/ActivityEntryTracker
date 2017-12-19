@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FitnessDataTableController: UITableViewController {
+class ActivityEntriesOverviewController: UITableViewController {
     var currentUsername: String?
     var userAuthenticationApproved: Bool? = false
     var appWasInBackground = false
@@ -17,7 +17,7 @@ class FitnessDataTableController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(DataTableViewCell.self, forCellReuseIdentifier: "DataTableViewCell")
+        tableView.register(EntryTableViewCell.self, forCellReuseIdentifier: "EntryTableViewCell")
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
@@ -67,13 +67,13 @@ class FitnessDataTableController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDataEntry" {
+        if segue.identifier == "showEntry" {
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
             
             let dataItem = fetchedResultsController.object(at: indexPath)
-            (segue.destination as! DataEntryView).fitDataItem = dataItem
+            (segue.destination as! EntryEditorView).activityEntryItem = dataItem
         }
     }
     
@@ -90,13 +90,13 @@ class FitnessDataTableController: UITableViewController {
             return
         }
         let mgdContext = fetchedResultsController.managedObjectContext
-        let fitnessDataItem = NSEntityDescription.insertNewObject(forEntityName: entityName, into: mgdContext) as! ActivityEntryItemMgdObj
-        fitnessDataItem.username = username
-        fitnessDataItem.entryDate = Date()
+        let activityEntryItem = NSEntityDescription.insertNewObject(forEntityName: entityName, into: mgdContext) as! ActivityEntryItemMgdObj
+        activityEntryItem.username = username
+        activityEntryItem.entryDate = Date()
         
         // These are treated as Objective-C related values, cannot be set to Optional, so initialize them here to avoid uncertain behavior
-        fitnessDataItem.durationMinutes = Int64(0)
-        fitnessDataItem.intensity = Float(0.0)
+        activityEntryItem.durationMinutes = Int64(0)
+        activityEntryItem.intensity = Float(0.0)
         
         do {
             try mgdContext.save()
@@ -135,7 +135,7 @@ class FitnessDataTableController: UITableViewController {
 
 // MARK: Fetched Results Controller Delegate
 
-extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
+extension ActivityEntriesOverviewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.beginUpdates()
     }
@@ -146,7 +146,7 @@ extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
                 tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
             case .delete:
                 tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.fade)
-            case .update: // have to populate with "snippet" of fitness data item
+            case .update: // have to populate with "snippet" of entry item
                 guard let currentCell = tableView.cellForRow(at: indexPath!), let currentDataItem = anObject as? ActivityEntryItemMgdObj else {
                     return
                 }
@@ -176,7 +176,7 @@ extension FitnessDataTableController: NSFetchedResultsControllerDelegate {
 
 // MARK: Necessary TableView Controller Functions
 
-extension FitnessDataTableController {
+extension ActivityEntriesOverviewController {
     // Side note-- using "self" just to clarify that fetchedResultsController is in the primary class, whereas this is an extension of thet class. Can use fetchedResultsController without specifiying self, however
     
     func populateTableViewCellWithSnippet(cell: UITableViewCell, with mgdObject: ActivityEntryItemMgdObj) {
@@ -201,7 +201,7 @@ extension FitnessDataTableController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let dataCell = tableView.dequeueReusableCell(withIdentifier: "DataTableViewCell", for: indexPath) as UITableViewCell
+        let dataCell = tableView.dequeueReusableCell(withIdentifier: "EntryTableViewCell", for: indexPath) as UITableViewCell
         let dataItem = self.fetchedResultsController.object(at: indexPath)
         populateTableViewCellWithSnippet(cell: dataCell, with: dataItem)
         
@@ -213,7 +213,7 @@ extension FitnessDataTableController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "showDataEntry", sender: self)
+        self.performSegue(withIdentifier: "showEntry", sender: self)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

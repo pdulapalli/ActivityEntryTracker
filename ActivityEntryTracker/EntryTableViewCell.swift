@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DataTableViewCell: UITableViewCell {
+class EntryTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     override func awakeFromNib() {

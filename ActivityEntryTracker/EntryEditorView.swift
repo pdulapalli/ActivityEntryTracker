@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DataEntryView: UIViewController {
+class EntryEditorView: UIViewController {
     @IBOutlet weak var activityTypeTextField: UITextField!
     @IBOutlet weak var entryDatePicker: UIDatePicker!
     @IBOutlet weak var durationPicker: UIDatePicker!
@@ -19,7 +19,7 @@ class DataEntryView: UIViewController {
     let saveButtonTag = 3
     var intensityValue: Float?
     
-    var fitDataItem: ActivityEntryItemMgdObj?
+    var activityEntryItem: ActivityEntryItemMgdObj?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +27,10 @@ class DataEntryView: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard fitDataItem != nil else {
+        guard activityEntryItem != nil else {
             return
         }
-        populateDataEntryFields(dataItem: fitDataItem!)
+        populateDataEntryFields(dataItem: activityEntryItem!)
     }
     
     @IBAction func intensityValueChanged(_ sender: UISlider) {
@@ -43,12 +43,13 @@ class DataEntryView: UIViewController {
     }
     
     @IBAction func saveDataEntryObject(_ sender: AnyObject) {
-        if sender.tag == saveButtonTag, let fdItem = fitDataItem {
+        print("HI!")
+        if sender.tag == saveButtonTag, let fdItem = activityEntryItem {
             do {
                 updateDataItemProperties(dataItem: fdItem)
                 try fdItem.managedObjectContext!.save()
             } catch {
-                print("Unable to save fitness data entry to records")
+                print("Unable to save modified entry to records")
             }
             let registerSuccessAlert = UIAlertController(title: "Success!", message: "Your changes have been saved", preferredStyle: .alert)
             registerSuccessAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))

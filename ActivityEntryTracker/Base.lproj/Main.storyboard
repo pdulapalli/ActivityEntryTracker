@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Fitness Data Overview-->
+        <!--Activity Entries Overview-->
         <scene sceneID="zLi-WP-Axg">
             <objects>
-                <tableViewController title="Fitness Data Overview" id="eN3-NP-3V9" customClass="FitnessDataTableController" customModule="ActivityEntryTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Activity Entries Overview" id="eN3-NP-3V9" customClass="ActivityEntriesOverviewController" customModule="ActivityEntryTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="sMj-0E-PMc">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -31,7 +31,7 @@
                             </items>
                         </toolbar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DataTableViewCell" textLabel="txf-fu-3XZ" style="IBUITableViewCellStyleDefault" id="q9q-Hh-QaL" customClass="DataTableViewCell" customModule="ActivityEntryTracker" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EntryTableViewCell" textLabel="txf-fu-3XZ" style="IBUITableViewCellStyleDefault" id="q9q-Hh-QaL" customClass="EntryTableViewCell" customModule="ActivityEntryTracker" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="1024" height="52"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q9q-Hh-QaL" id="5QS-yi-3UG">
@@ -48,7 +48,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="1Hm-d3-qFA" kind="show" identifier="showDataEntry" id="KzI-l0-dH6"/>
+                                    <segue destination="1Hm-d3-qFA" kind="show" identifier="showEntry" id="KzI-l0-dH6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -57,7 +57,7 @@
                             <outlet property="delegate" destination="eN3-NP-3V9" id="Dyw-Nu-IcO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Fitness Data Overview" prompt="Add or edit your fitness entries" id="aDo-FW-SMs">
+                    <navigationItem key="navigationItem" title="Activity Entries Overview" prompt="Add or edit your activity entries" id="aDo-FW-SMs">
                         <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="9RD-jx-n7M">
                             <connections>
                                 <action selector="addNewDataItem:" destination="eN3-NP-3V9" id="gFc-4S-tYI"/>
@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="427.1484375" y="112.44509516837481"/>
         </scene>
-        <!--Data Entry View-->
+        <!--Entry Editor View-->
         <scene sceneID="a2s-2U-j0M">
             <objects>
-                <viewController id="1Hm-d3-qFA" userLabel="Data Entry View" customClass="DataEntryView" customModule="ActivityEntryTracker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Entry Editor View" id="1Hm-d3-qFA" customClass="EntryEditorView" customModule="ActivityEntryTracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0tE-jl-cKu">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -153,7 +153,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bdW-sO-s4G"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Fitness Data Entry" id="UMk-AG-hJl">
+                    <navigationItem key="navigationItem" title="Activity Entry Editor" id="UMk-AG-hJl">
                         <barButtonItem key="rightBarButtonItem" tag="3" systemItem="save" id="l9E-ZB-HFk">
                             <connections>
                                 <action selector="saveDataEntryObject:" destination="1Hm-d3-qFA" id="gDd-I5-MaE"/>
@@ -196,7 +196,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Fitness Data Tracker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-SA-vOE">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Activity Entry Tracker" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="hxF-SA-vOE">
                                 <rect key="frame" x="51" y="109.5" width="922" height="478"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="150"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -214,7 +214,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RN3-j0-81L">
-                                <rect key="frame" x="205" y="956" width="614" height="136.5"/>
+                                <rect key="frame" x="205" y="956" width="614" height="137"/>
                                 <color key="backgroundColor" red="0.15560233160621761" green="0.15560233160621761" blue="0.15560233160621761" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <state key="normal" title="Login">
