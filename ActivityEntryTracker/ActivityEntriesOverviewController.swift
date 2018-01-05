@@ -184,7 +184,7 @@ extension ActivityEntriesOverviewController {
             let activityTypeText = mgdObject.activityType != nil ? mgdObject.activityType! : "Unknown Activity"
             if mgdObject.entryDate != nil {
                 let dateString = dateFormatter.string(from: mgdObject.entryDate!)
-                cell.textLabel!.text = dateString + " | " + mgdObject.username! + " | " + activityTypeText
+                cell.textLabel!.text = dateString + " | " + activityTypeText
             }
         } else {
             cell.textLabel!.text = "BLANK"

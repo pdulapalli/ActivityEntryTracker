@@ -30,7 +30,6 @@ class LoginViewController: UIViewController {
         self.loginButton.titleLabel?.adjustsFontSizeToFitWidth = true
         self.loginTextField.adjustsFontSizeToFitWidth = true
         self.loginTextField.autocorrectionType = UITextAutocorrectionType.no
-        self.loginTextField.isSecureTextEntry = true
     }
     
     @IBAction func logUserIn(_ sender: UIButton) {
